@@ -11,7 +11,7 @@ using Assessment;
 namespace Catalog.Controllers
 {
     [ApiController]
-    [Route("customers")]
+    [Route("/api")]
        public class OrdersController : ControllerBase
     {
         private readonly IIOrdersRepo repository;
@@ -22,6 +22,7 @@ namespace Catalog.Controllers
         }
 
         // GET /orders
+        [Route("/customer")]
         [HttpGet]
         public IEnumerable<OrderDto> GetAllOrders()
         {
@@ -30,7 +31,7 @@ namespace Catalog.Controllers
         }
 
         // GET /order/{id}
-        [HttpGet("{id}")]
+        [HttpGet("/customer{id}")]
         public ActionResult<OrderDto> GetOrder(Guid id)
         {
             var order = repository.GetOrder(id);
@@ -44,7 +45,8 @@ namespace Catalog.Controllers
         }
 
         // POST /orders
-        [HttpPost]
+        
+        [HttpPost("/createOrder")]
         public ActionResult<OrderDto> CreateOrder(CreateOrderDto orderDto)
         {
             Order order = new()
@@ -61,7 +63,7 @@ namespace Catalog.Controllers
         }
 
         // PUT /orders/{id}
-        [HttpPut("{id}")]
+        [HttpPut("/updateOrder{id}")]
         public ActionResult UpdateOrder(Guid id, UpdateOrderDto OrderDto)
         {
             var existingOrder = repository.GetOrder(id);
@@ -84,7 +86,7 @@ namespace Catalog.Controllers
         }
 
         // DELETE /orders/{id}
-        [HttpDelete("{id}")]
+        [HttpDelete("/deleteOrder{id}")]
         public ActionResult DeleteOrder(Guid id)
         {
             var existingOrder = repository.GetOrder(id);
